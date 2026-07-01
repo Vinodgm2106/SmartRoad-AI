@@ -1,0 +1,13 @@
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 10
+names: ['D00', 'D01', 'D0w0', 'D10', 'D11', 'D20', 'D40', 'D43', 'D44', 'D50']
+
+roboflow:
+  workspace: prakhar-kpb1v
+  project: rdd2022-india-il8ju
+  version: 6
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/prakhar-kpb1v/rdd2022-india-il8ju/dataset/6
