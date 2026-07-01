@@ -1,0 +1,28 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Large Archives (GitHub rejects files > 100MB)
+*.zip
+*.tar.gz
+*.rar
+
+# SQLite Database
+database/*.db
+
+# Local Streamlit secrets
+.streamlit/secrets.toml
+
+# OS Files
+.DS_Store
+Thumbs.db
