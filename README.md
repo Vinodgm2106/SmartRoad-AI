@@ -1,4 +1,4 @@
-# 🛣️ SmartRoad-AI: Pavement Defect Detection & Severity Analysis
+# 🛣️ SmartRoad-AI: Intelligent Pothole \& Defect Detection System
 
 SmartRoad-AI is a high-performance computer vision and municipal reporting dashboard designed to detect, track, rank, and report structural road damage (potholes, longitudinal cracks, lateral cracks, and alligator fatigue cracking) from inspection images and videos.
 
