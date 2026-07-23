@@ -93,9 +93,9 @@ def seed_mock_data(num_records):
             else:
                 high += 1
                 
-        # Generate coordinates centered around Delhi, India
-        lat = 28.6139 + random.uniform(-0.15, 0.15)
-        lon = 77.2090 + random.uniform(-0.15, 0.15)
+        # Generate coordinates centered around Bangalore, India
+        lat = 12.9716 + random.uniform(-0.15, 0.15)
+        lon = 77.5946 + random.uniform(-0.15, 0.15)
                 
         cursor = db.conn.cursor()
         cursor.execute("""

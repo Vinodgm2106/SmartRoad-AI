@@ -1,4 +1,44 @@
 from PIL import ImageDraw, ImageFont
+from PIL.ExifTags import TAGS, GPSTAGS
+
+def get_image_gps(image):
+    """
+    Extract latitude and longitude from image EXIF metadata.
+    Returns (lat, lon) or (None, None) if not present.
+    """
+    try:
+        exif = image._getexif()
+        if not exif:
+            return None, None
+            
+        gps_info = {}
+        for key, val in exif.items():
+            tag = TAGS.get(key, key)
+            if tag == "GPSInfo":
+                for sub_key, sub_val in val.items():
+                    sub_tag = GPSTAGS.get(sub_key, sub_key)
+                    gps_info[sub_tag] = sub_val
+                    
+        if "GPSLatitude" in gps_info and "GPSLongitude" in gps_info:
+            lat_ref = gps_info.get("GPSLatitudeRef", "N")
+            lon_ref = gps_info.get("GPSLongitudeRef", "E")
+            
+            lat = gps_info["GPSLatitude"]
+            lon = gps_info["GPSLongitude"]
+            
+            # Convert degrees, minutes, seconds to decimal degrees
+            lat_dec = float(lat[0]) + float(lat[1])/60.0 + float(lat[2])/3600.0
+            lon_dec = float(lon[0]) + float(lon[1])/60.0 + float(lon[2])/3600.0
+            
+            if lat_ref == "S":
+                lat_dec = -lat_dec
+            if lon_ref == "W":
+                lon_dec = -lon_dec
+                
+            return lat_dec, lon_dec
+    except Exception:
+        pass
+    return None, None
 
 
 def annotate_image(image, detections):

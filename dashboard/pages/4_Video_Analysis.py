@@ -63,14 +63,14 @@ with st.expander("⚙️ Video Processing Settings", expanded=False):
     st.markdown("#### 📍 Video GPS Mapping Location")
     gps_option = st.radio(
         "GPS Tagging Mode",
-        options=["Simulated Local Area (Delhi)", "Manual Input", "No GPS Tagging"],
+        options=["Simulated Local Area (Bangalore)", "Manual Input", "No GPS Tagging"],
         index=0
     )
     
     col_lat, col_lon = st.columns(2)
     if gps_option == "Manual Input":
-        lat_val = col_lat.number_input("Latitude", value=28.6139, format="%.6f")
-        lon_val = col_lon.number_input("Longitude", value=77.2090, format="%.6f")
+        lat_val = col_lat.number_input("Latitude", value=12.9716, format="%.6f")
+        lon_val = col_lon.number_input("Longitude", value=77.5946, format="%.6f")
     else:
         lat_val = None
         lon_val = None
@@ -214,10 +214,10 @@ if uploaded_video:
         cap.release()
         
         # Determine GPS location
-        if gps_option == "Simulated Local Area (Delhi)":
+        if gps_option == "Simulated Local Area (Bangalore)":
             import random
-            latitude = 28.6139 + random.uniform(-0.15, 0.15)
-            longitude = 77.2090 + random.uniform(-0.15, 0.15)
+            latitude = 12.9716 + random.uniform(-0.15, 0.15)
+            longitude = 77.5946 + random.uniform(-0.15, 0.15)
         elif gps_option == "Manual Input":
             latitude = lat_val
             longitude = lon_val

@@ -10,7 +10,7 @@ if str(ROOT) not in sys.path:
 
 from src.app.detector import RoadDamageDetector
 from src.app.severity import SeverityAnalyzer
-from src.app.image_utils import annotate_image
+from src.app.image_utils import annotate_image, get_image_gps
 from src.app.database_manager import DatabaseManager
 from src.app.navigation import render_sidebar
 
@@ -48,15 +48,15 @@ with st.expander("⚙️ Advanced Detection Settings", expanded=False):
     st.markdown("#### 📍 Defect Location Mapping (GPS)")
     gps_option = st.radio(
         "GPS Tagging Mode",
-        options=["Simulated Local Area (Delhi)", "Manual Input", "No GPS Tagging"],
+        options=["Auto-Extract from Image Metadata (EXIF)", "Simulated Local Area (Bangalore)", "Manual Input", "No GPS Tagging"],
         index=0,
-        help="Simulate a municipal area survey coordinate or input custom coordinates."
+        help="Attempt to auto-extract GPS coordinates from image EXIF metadata, simulate coordinates, or enter manually."
     )
     
     col_lat, col_lon = st.columns(2)
     if gps_option == "Manual Input":
-        lat_val = col_lat.number_input("Latitude", value=28.6139, format="%.6f")
-        lon_val = col_lon.number_input("Longitude", value=77.2090, format="%.6f")
+        lat_val = col_lat.number_input("Latitude", value=12.9716, format="%.6f")
+        lon_val = col_lon.number_input("Longitude", value=77.5946, format="%.6f")
     else:
         lat_val = None
         lon_val = None
@@ -123,9 +123,18 @@ if uploaded_files:
                     
                     # Determine GPS Coordinates
                     import random
-                    if gps_option == "Simulated Local Area (Delhi)":
-                        latitude = 28.6139 + random.uniform(-0.15, 0.15)
-                        longitude = 77.2090 + random.uniform(-0.15, 0.15)
+                    if gps_option == "Auto-Extract from Image Metadata (EXIF)":
+                        lat_exif, lon_exif = get_image_gps(image)
+                        if lat_exif is not None and lon_exif is not None:
+                            latitude = lat_exif
+                            longitude = lon_exif
+                        else:
+                            # Fallback if no metadata is present
+                            latitude = 12.9716 + random.uniform(-0.15, 0.15)
+                            longitude = 77.5946 + random.uniform(-0.15, 0.15)
+                    elif gps_option == "Simulated Local Area (Bangalore)":
+                        latitude = 12.9716 + random.uniform(-0.15, 0.15)
+                        longitude = 77.5946 + random.uniform(-0.15, 0.15)
                     elif gps_option == "Manual Input":
                         latitude = lat_val
                         longitude = lon_val
@@ -205,9 +214,9 @@ if uploaded_files:
                 
                 # Determine GPS Coordinates
                 import random
-                if gps_option == "Simulated Local Area (Delhi)":
-                    latitude = 28.6139 + random.uniform(-0.15, 0.15)
-                    longitude = 77.2090 + random.uniform(-0.15, 0.15)
+                if gps_option == "Auto-Extract from Image Metadata (EXIF)" or gps_option == "Simulated Local Area (Bangalore)":
+                    latitude = 12.9716 + random.uniform(-0.15, 0.15)
+                    longitude = 77.5946 + random.uniform(-0.15, 0.15)
                 elif gps_option == "Manual Input":
                     latitude = lat_val
                     longitude = lon_val
