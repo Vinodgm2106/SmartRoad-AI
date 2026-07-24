@@ -11,8 +11,15 @@
     background-color: #ffffff !important;
     border-right: 1px solid #e2e8f0;
 }
-[data-testid="stSidebar"] * {
+[data-testid="stSidebar"] *:not(i):not([class*="material"]) {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+/* Fix Streamlit Material Icons text bug (keyboard_double_arrow_left) */
+[data-testid="stSidebarCollapseButton"],
+[data-testid="stSidebarHeader"],
+button[kind="header"] {
+    display: none !important;
 }
 
 /* --- Streamlit Metric Cards Customization --- */
@@ -220,46 +227,88 @@ section[data-testid="stSidebar"] nav {
     box-shadow: 0 6px 20px rgba(78, 67, 118, 0.3) !important;
 }
 section[data-testid="stSidebar"] {
-    min-width: 250px !important;
-    max-width: 280px !important;
-    width: 260px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+    width: 80px !important;
 }
 section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
-    padding: 20px 12px !important;
+    padding: 24px 0 !important;
 }
 
-.nav-item-expanded {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 10px 14px !important;
+.nav-item-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    flex-shrink: 0 !important;
     border-radius: 12px !important;
     background-color: #f8fafc;
-    color: #334155 !important;
+    color: #64748b;
     text-decoration: none !important;
-    font-weight: 600 !important;
-    font-size: 0.88rem !important;
-    transition: all 0.2s ease-in-out !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid #e2e8f0;
 }
-.nav-item-expanded:hover {
+.nav-item:hover {
     background-color: #3b82f6 !important;
-    color: #ffffff !important;
     border-color: #3b82f6 !important;
-    transform: translateX(3px) !important;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25) !important;
+    transform: scale(1.1);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.25);
 }
-.nav-item-expanded.active {
+.nav-item span {
+    font-size: 1.4rem !important;
+}
+.nav-item.active {
     background-color: #1e3a8a !important;
-    color: #ffffff !important;
     border-color: #1e3a8a !important;
-    box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.2) !important;
+    box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.15) !important;
 }
-.nav-icon {
-    font-size: 1.25rem !important;
+.nav-item.active span {
+    filter: brightness(1.2);
 }
-.nav-text {
-    white-space: nowrap !important;
+.nav-item.active::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 18px;
+    background-color: #3b82f6;
+    border-radius: 2px;
+}
+.nav-item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 70px;
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    z-index: 999999;
+}
+.nav-item:hover::after {
+    opacity: 1;
+    visibility: visible;
+    left: 75px;
 }
 
 /* --- Portal Cards Text Styling (Light Theme Defaults) --- */
