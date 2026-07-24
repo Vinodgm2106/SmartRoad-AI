@@ -38,9 +38,9 @@ st.write("Upload a high-resolution image of a road surface to analyze and identi
 with st.expander("⚙️ Advanced Detection Settings", expanded=False):
     conf_threshold = st.slider(
         "🎯 Model Confidence Threshold",
-        min_value=0.00,
+        min_value=0.01,
         max_value=1.00,
-        value=0.25,
+        value=0.15,
         step=0.01,
         help="Lower the threshold to detect more objects with lower confidence, or raise it to filter out uncertain detections."
     )

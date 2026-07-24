@@ -57,7 +57,8 @@ class RoadDamageDetector:
         results = self.model.predict(
             source=image_path,
             conf=conf if conf is not None else CONFIDENCE_THRESHOLD,
-            imgsz=1280,
+            imgsz=640,
+            iou=0.45,
             save=False,
             verbose=False
         )
