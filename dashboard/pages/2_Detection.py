@@ -67,7 +67,7 @@ if "batch_results" not in st.session_state:
 
 uploaded_files = st.file_uploader(
     "Choose Road Images and Videos...",
-    type=["jpg", "jpeg", "png", "mp4", "avi", "mov"],
+    type=["jpg", "jpeg", "png", "webp", "jfif", "bmp", "tiff", "mp4", "avi", "mov", "mkv"],
     accept_multiple_files=True,
     help="Upload one or more road surface images or video recordings to scan."
 )
@@ -90,7 +90,7 @@ if uploaded_files:
             status_text.text(f"Processing ({idx+1}/{len(uploaded_files)}): {file_name}...")
             
             # --- IMAGE PROCESSING BRANCH ---
-            if file_ext in [".jpg", ".jpeg", ".png"]:
+            if file_ext in [".jpg", ".jpeg", ".png", ".webp", ".jfif", ".bmp", ".tiff"]:
                 try:
                     file.seek(0)
                     image = Image.open(file)
