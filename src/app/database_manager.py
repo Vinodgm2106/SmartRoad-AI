@@ -6,8 +6,8 @@ from src.app.config import DATABASE_PATH
 class DatabaseManager:
 
     def __init__(self):
-
-        self.conn = sqlite3.connect(DATABASE_PATH)
+        DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        self.conn = sqlite3.connect(str(DATABASE_PATH))
 
         self.create_table()
 
