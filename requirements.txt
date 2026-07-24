@@ -1,3 +1,4 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
 streamlit
 pandas
 plotly
@@ -6,9 +7,9 @@ streamlit-folium
 fpdf2
 openpyxl
 opencv-python-headless
-ultralytics
 torch
 torchvision
+ultralytics
 numpy
 pillow
 google-generativeai
