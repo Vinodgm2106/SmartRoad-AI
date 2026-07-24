@@ -302,7 +302,9 @@ if uploaded_files:
                     med_count = severity.get("Medium", 0)
                     low_count = severity.get("Low", 0)
                     
-                    if high_count > 0:
+                    if total_defects == 0:
+                        st.info("💡 **No defects detected at current threshold.** Note: This model is trained specifically on **paved asphalt and concrete roads** (RDD2022 dataset). For best results, test on paved city/highway road images or try adjusting the confidence threshold.")
+                    elif high_count > 0:
                         st.error(f"🚨 High Risk: **{high_count}** defect(s) detected. Requires immediate intervention!")
                     if med_count > 0:
                         st.warning(f"⚠️ Medium Risk: **{med_count}** defect(s) detected. Plan repairs soon.")
